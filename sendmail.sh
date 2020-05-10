@@ -1,17 +1,28 @@
 #!/bin/sh
-if [ $# -lt 3 ]
+if [ $# -ne 3 ] && [ $# -ne 4 ]
 then
-   echo "usage: $0 receive subject content" 
-   echo "usage: $0 receive subject file" 
+   echo "usage: $0 receive [cc] subject 'content or file'" 
    exit 1
-fi
-receive=$1
-subject=$2
-if [ -e $3 ] && [ -f $3 ]
+elif [ $# -eq 3 ]  #no cc
 then
-  content=`cat $3`
-else
- content=$3
+   receive=$1
+   subject=$2
+   if [ -e $3 ] && [ -f $3 ]
+   then
+     content=`cat $3`
+   else
+     content=`echo -e "$3"`
+   fi
+   ./sendmail.py "$receive" "$subject" "$content"
+else  #has cc
+   receive=$1
+   cc=$2
+   subject=$3
+   if [ -e $4 ] && [ -f $4 ]
+   then
+      content=`cat $4`
+   else
+      content=`echo -e "$4"`
+   fi
+   ./sendmail.py "$receive" "$cc" "$subject" "$content"
 fi
-
-./sendmail.py $receive $subject "$content"
