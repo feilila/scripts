@@ -21,8 +21,8 @@ senddate=`date +'%Y-%m-%d-%w'`
 receive="35420784@qq.com"
 cc="zhengsj@clo.com.cn"
 subject="开乐彩游戏研发部疫情防控情况汇总-${senddate}"
-content="于玮,你好!我部门今天如昨日,一切正常,详情见附件."
 attachfile="b.csv"
+content=`cat mailtoYW.txt`
 
 maxlineno=`nl $csvfile |sed -n '/%s,%m/p'|awk '{print $1}'`
 if [ -n "$maxlineno" ]
