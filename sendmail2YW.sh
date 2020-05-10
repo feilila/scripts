@@ -1,17 +1,17 @@
 #!/bin/sh
-if [ "$(uname)"=="Darwin" ]
+if [ "$(uname)" == "Darwin" ]
 then
    OS="mac"
-elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]
 then   
    OS="linux"
-elif [ "$(expr substr $(uname -s) 1 10)"=="MINGW32_NT" ]
+elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]
 then    
    OS="win"
 else
    OS="others"
 fi
-
+echo "OS=$OS"
 
 csvfile="test-utf8.csv"
 worktime="9:00-17:30"
@@ -25,11 +25,12 @@ attachfile="b.csv"
 content=`cat mailtoYW.txt`
 
 maxlineno=`nl $csvfile |sed -n '/%s,%m/p'|awk '{print $1}'`
+
 if [ -n "$maxlineno" ]
  then
-    if [ $(($maxlineno-1)) -gt 1 ]
+    seq_line=$(($maxlineno-1))
+    if [ $seq_line -gt 1 ]
     then
-       seq_line=$(($maxlineno-1))
        seq=`sed -n "${seq_line}p" ${csvfile}|awk -F"," '{print $1}'`
        echo "seq=$seq"
        if [ -z "`echo $seq | sed 's/[0-9]//g'`" ]
@@ -48,13 +49,13 @@ else
    exit 1
 fi
 
- year=`echo "$senddate" | awk -F- '{print $1}'`
- month=`echo "$senddate" | awk -F- '{print $2}'`
- date=`echo "$senddate" | awk -F- '{print $3}'`
- week=$(expr `echo "$senddate" | awk -F- '{print $4}'`)
+year=`echo "$senddate" | awk -F- '{print $1}'`
+month=`echo "$senddate" | awk -F- '{print $2}'`
+date=`echo "$senddate" | awk -F- '{print $3}'`
+week=$(expr `echo "$senddate" | awk -F- '{print $4}'`)
 
 
- echo "month=$month,date=$date,week=$week,seq=$seq"
+echo "month=$month,date=$date,week=$week,seq=$seq"
 
 if [ $week -eq 0 ] || [ $week -eq 6 ] ###sunday or saturday
 then
@@ -82,8 +83,8 @@ then
     exit 0
 elif [ "${OS}" == "linux" ]
 then
-   sed -e "${maxlineno}a\\${newline}" ${csvfile} > ${csvfile}.tmp
-   mv ${csvfile}.tmp ${csvfile}
+   sed -e "${maxlineno}a\\${newline}" ${csvfile}> ${csvfile}.tmp
+   mv  ${csvfile}.tmp  ${csvfile}
    exit 0
 else
    echo "add new line failed"
