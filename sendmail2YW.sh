@@ -22,7 +22,7 @@ receive="35420784@qq.com"
 cc="zhengsj@clo.com.cn"
 subject="开乐彩游戏研发部疫情防控情况汇总-${senddate}"
 attachfile="b.csv"
-content=`cat mailtoYW.txt`
+content=`cat ./mailtoYW.txt`
 
 maxlineno=`nl $csvfile |sed -n '/%s,%m/p'|awk '{print $1}'`
 
