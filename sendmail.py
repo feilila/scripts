@@ -11,7 +11,6 @@ mail_user='zhengsj'
 mail_pass = 'Zhengsj1113'
 
 mail_host='mail.clo.com.cn'
-mail_to='zhengsj@clo.com.cn'
 mail_postfix='clo.com.cn'
 
 def mail(to_list,cc_list,subject,content,attach_filepath):
@@ -20,7 +19,7 @@ def mail(to_list,cc_list,subject,content,attach_filepath):
         me=mail_user+"<"+mail_user+"@"+mail_postfix+">"
         #msg = MIMEMultipart('alternative')   二选一
         msg = MIMEMultipart()
-        msg.attach(MIMEText(content,'html','utf-8'))
+        msg.attach(MIMEText(content,'plain','utf-8'))
         msg['Subject'] = subject
         msg['From'] = me
         msg['To'] = ";".join(to_list)
