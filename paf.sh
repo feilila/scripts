@@ -1,19 +1,24 @@
 #!/bin/sh
 do_seek() 
 {
-for file in $(ls $1);do
-fullpath="$1/$file"
-if [ -d $fullpath ];then
-do_seek $fullpath
-else
-echo $fullpath
-fi
+local arg=$@
+####echo "arg=$arg"
+for file in $(ls "$arg"|tr " " "?");do
+    local tmpfullpath="$arg/$file"
+    local fullpath=`echo "${tmpfullpath}"|sed -e 's/?/ /g'`
+    if [ -d "${fullpath}" ];then
+        ##echo ""
+        ##echo "-------${fullpath}------------"
+        do_seek "$fullpath"
+    else
+        echo "'${fullpath}'"
+    fi
 done
 }
 
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
 do_seek ./
 else
-do_seek $1
+do_seek $@
 fi
