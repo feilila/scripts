@@ -2,8 +2,8 @@
 do_seek() 
 {
 local arg=$@
-####echo "arg=$arg"
-for file in $(ls "$arg"|tr " " "?");do
+##echo "arg=$arg"
+for file in $(ls -a "$arg"|grep -v -e"^\.$" -e "^\.\.$"|tr " " "?");do
     local tmpfullpath="$arg/$file"
     local fullpath=`echo "${tmpfullpath}"|sed -e 's/?/ /g'`
     if [ -d "${fullpath}" ];then
@@ -18,7 +18,7 @@ done
 
 if [ $# -lt 1 ]
 then
-do_seek ./
+do_seek .
 else
 do_seek $@
 fi
