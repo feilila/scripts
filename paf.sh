@@ -3,7 +3,7 @@ do_seek()
 {
 local arg=$@
 ##echo "arg=$arg"
-for file in $(ls -a "$arg"|grep -v -e"^\.$" -e "^\.\.$"|tr " " "?");do
+for file in $(ls -a "$arg"|grep -v -e"^\.$" -e "^\.\.$"|tr " " "?");do  ####inspite of ./,../ dir ,repalce the SPACE to ?######
     local tmpfullpath="$arg/$file"
     local fullpath=`echo "${tmpfullpath}"|sed -e 's/?/ /g'`
     if [ -d "${fullpath}" ];then
