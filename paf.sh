@@ -1,3 +1,4 @@
+####support ergodic all files include "hidden files"#######
 #!/bin/sh
 do_seek() 
 {
