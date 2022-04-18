@@ -2,7 +2,7 @@
 echo "$@"
 if [ $# -lt 3 ]
 then
-   echo "usage: $0 sourcedir targetdir 'findfiles'"
+   echo "usage: $0 sourceString targetString 'findfiles'"
    exit 1
 fi
 rep_source=$1
