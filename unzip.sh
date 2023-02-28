@@ -6,7 +6,7 @@ local arg=$@
 echo "arg=$arg,pwd=$(pwd)"
 cd "$arg"
 echo "pwd=$(pwd)"
-for file in $(ls -a |grep -v -e"^\.$" -e "^\.\.$"|tr " " "?");do  
+for file in $(ls $suffix);do  
     if [ -d "${file}" ];then
         echo "-------${file}------------"
         do_seek "$file"
@@ -20,7 +20,14 @@ cd ..
 
 if [ $# -lt 1 ]
 then
-do_seek .
+  echo "Usage:$0 [dir][suffix]"
+elif [ $# -lt 2 ]
+then
+  dir=$1
+  suffix=""
+  do_seek $dir
 else
-do_seek $@
+  dir=$1
+  suffix=$2
+  do_seek $dir
 fi
