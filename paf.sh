@@ -12,7 +12,7 @@ for file in $(ls -a "$arg"|grep -v -e"^\.$" -e "^\.\.$"|tr " " "?");do  ####insp
         ##echo "-------${fullpath}------------"
         do_seek "$fullpath"
     else
-        echo "'${fullpath}'"
+        echo "${fullpath}"
     fi
 done
 }
