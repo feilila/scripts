@@ -3,16 +3,34 @@
 do_seek() 
 {
 local arg=$@
-echo "arg=$arg,pwd=$(pwd)"
+echo "arg=$arg,pwd=$(pwd),suffix=$suffix"
 cd "$arg"
 echo "pwd=$(pwd)"
-for file in $(ls $suffix);do  
+files=$(ls $suffix)
+exitcode=`echo $?`
+if [ ${exitcode} -ne 0 ]
+then
+  files=$(ls)
+  exitcode=`echo $?`
+  if [ ${exitcode} -ne 0 ]
+  then
+    echo "occur error when ls"
+    exit 1
+  fi
+fi
+for file in $files;do
     if [ -d "${file}" ];then
         echo "-------${file}------------"
         do_seek "$file"
     else
         echo "${file}"
 	unzip ${file}
+        exitcode=`echo $?`
+        if [ ${exitcode} -ne 0 ]
+        then
+          echo "occur error when unzip ${file}"
+          exit 2
+        fi
     fi
 done
 cd ..
