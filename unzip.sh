@@ -14,8 +14,8 @@ then
   exitcode=`echo $?`
   if [ ${exitcode} -ne 0 ]
   then
-    echo "occur error when ls"
-    exit 1
+       echo "occur error when ls $suffix in $args of dir"
+       exit 1
   fi
 fi
 for file in $files;do
@@ -29,7 +29,6 @@ for file in $files;do
         if [ ${exitcode} -ne 0 ]
         then
           echo "occur error when unzip ${file}"
-          exit 2
         fi
     fi
 done
