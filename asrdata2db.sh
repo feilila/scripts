@@ -25,7 +25,7 @@ for file in $files;do
         do_seek "$file"
     else
 	##eval "$cmd ${file}"
-	create-asrsql.sh $curdir $file $mysql_script_file 
+	create-asrsql.sh $curdir $file $mysql_script_fullpath 
         exitcode=`echo $?`
         if [ ${exitcode} -ne 0 ]
         then
@@ -42,8 +42,9 @@ then
 else
   dir=$1
   suffix=$2
-  mysql_script_file=$3
-  echo "dir=$dir,suffix=$suffix,mysql_script_file=$mysql_script_file"
-  rm -f ./$mysql_script_file
+  mysql_script_file="$3"
+  mysql_script_fullpath="$(pwd)/$mysql_script_file"
+  echo "dir=$dir,suffix=$suffix,mysql_script_fullpath=$mysql_script_fullpath"
+  rm -f $mysql_script_fullpath
   do_seek $dir
 fi
