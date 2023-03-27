@@ -1,4 +1,4 @@
-####Batch processing files#######
+####Batch processing asr std files for creating sql#######
 #!/bin/bash
 do_seek() 
 {
